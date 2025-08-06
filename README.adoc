@@ -1,2 +1,45 @@
 https://www.cnblogs.com/studyjobs/p/17876207.html[代初始版本来自]
 
+== 运行环境
+
+
+|===
+|运行软件 |版本号 |备注
+
+|nacos-server|2.2.0|
+|seata-server|1.5.2|
+|JDK|1.8|
+|mysql|8.0.42|
+
+|===
+
+== 启动
+
+在windowns环境中运行
+
+=== nacos-serer
+
+使用默认配置, `bin\startup.cmd -m standalone`
+
+=== seata-server
+
+使用配置 https://github.com/Halcyon666/learn-distribute-trasaction/blob/main/seata-server-config/application.yml[application.yml]，`bin\seata-server.bat`
+
+
+启动所有模块
+
+== 测试接口
+
+[source,http]
+----
+POST http://localhost:9093/order/create
+Content-Type: application/json
+
+{
+  "id": 10,
+  "userId": "12345",
+  "goodsId": "1233",
+  "count": 1,
+  "money": 100
+}
+----
