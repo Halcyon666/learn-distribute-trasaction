@@ -1,0 +1,29 @@
+description = '库存服务 - 负责商品库存管理'
+
+dependencies {
+    // Spring Boot Web Starter
+    implementation 'org.springframework.boot:spring-boot-starter-web'
+    
+    // Nacos 服务发现
+    implementation 'com.alibaba.cloud:spring-cloud-starter-alibaba-nacos-discovery'
+    
+    // MySQL 数据库驱动
+    implementation 'com.mysql:mysql-connector-j'
+    
+    // MyBatis Plus ORM框架
+    implementation 'com.baomidou:mybatis-plus-boot-starter'
+    
+    // Seata 分布式事务
+    implementation('com.alibaba.cloud:spring-cloud-starter-alibaba-seata') {
+        exclude group: 'io.seata', module: 'seata-spring-boot-starter'
+    }
+    implementation 'io.seata:seata-spring-boot-starter'
+    
+    // Lombok 代码简化工具
+    compileOnly 'org.projectlombok:lombok'
+    annotationProcessor 'org.projectlombok:lombok'
+}
+
+bootJar {
+    archiveFileName = 'stock-service.jar'
+}

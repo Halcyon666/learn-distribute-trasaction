@@ -1,0 +1,71 @@
+plugins {
+    id 'java'
+    id 'org.springframework.boot' version "${springBootVersion}" apply false
+    id 'io.spring.dependency-management' version '1.0.15.RELEASE' apply false
+}
+
+description = '分布式事务 Seata TCC 模式演示项目'
+
+allprojects {
+    group = 'com.jobs'
+    version = '1.0'
+    
+    repositories {
+        mavenLocal()
+        maven { url 'https://maven.aliyun.com/repository/public/' }
+        maven { url 'https://maven.aliyun.com/repository/spring/' }
+        mavenCentral()
+    }
+}
+
+subprojects {
+    apply plugin: 'java'
+    apply plugin: 'org.springframework.boot'
+    apply plugin: 'io.spring.dependency-management'
+    
+    java {
+        sourceCompatibility = JavaVersion.VERSION_1_8
+        targetCompatibility = JavaVersion.VERSION_1_8
+    }
+    
+    configurations {
+        compileOnly {
+            extendsFrom annotationProcessor
+        }
+    }
+    
+    dependencyManagement {
+        imports {
+            // Spring Cloud BOM
+            mavenBom "org.springframework.cloud:spring-cloud-dependencies:${springCloudVersion}"
+            
+            // Spring Cloud Alibaba BOM
+            mavenBom "com.alibaba.cloud:spring-cloud-alibaba-dependencies:${springCloudAlibabaVersion}"
+        }
+        
+        dependencies {
+            // 数据库相关
+            dependency "com.mysql:mysql-connector-j:${mysqlVersion}"
+            dependency "com.baomidou:mybatis-plus-boot-starter:${mybatisPlusVersion}"
+            
+            // 分布式事务
+            dependency "io.seata:seata-spring-boot-starter:${seataVersion}"
+            
+            // 工具类
+            dependency "org.projectlombok:lombok:${lombokVersion}"
+        }
+    }
+    
+    dependencies {
+        // 测试依赖
+        testImplementation 'org.springframework.boot:spring-boot-starter-test'
+    }
+    
+    tasks.withType(JavaCompile) {
+        options.encoding = 'UTF-8'
+    }
+    
+    test {
+        useJUnitPlatform()
+    }
+}

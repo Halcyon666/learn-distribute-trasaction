@@ -1,0 +1,5 @@
+rootProject.name = 'springcloud_seata_tcc'
+
+include 'AccountService'
+include 'OrderService'
+include 'StockService'
